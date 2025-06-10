@@ -1,10 +1,12 @@
 import sqlite3
 import json
+import os
 from datetime import datetime
 
 class Database:
-    def __init__(self, db_path="telegram_analyzer\\data\\chats.db"):
+    def __init__(self, db_path="data\\chats.db"):
         self.db_path = db_path
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
         self.init_db()
     
     def init_db(self):
