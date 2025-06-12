@@ -28,21 +28,19 @@ class Database:
         conn.commit()
         conn.close()
     
-    def save_analysis(self, chat_id, chat_name, analysis):
+    def save_analysis(self, chat_id, chat_name,):
         """Збереження результатів аналізу"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         
         cursor.execute("""
             INSERT INTO chat_analysis 
-            (chat_id, chat_name, analysis_date, analysis_result, unfulfilled_count)
-            VALUES (?, ?, ?, ?, ?)
+            (chat_id, chat_name, analysis_date)
+            VALUES (?, ?, ?)
         """, (
             chat_id,
             chat_name,
-            datetime.now(),
-            json.dumps(analysis, ensure_ascii=False),
-            analysis.get('unfulfilled_count', 0)
+            datetime.now()
         ))
         
         conn.commit()
